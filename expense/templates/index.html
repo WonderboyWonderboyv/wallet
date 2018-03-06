@@ -1,0 +1,222 @@
+<!DOCTYPE>
+<html lang="en">
+
+<head>
+    {% load staticfiles %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+    <title>Wallet</title>
+</head>
+
+<body>
+
+    <header class="mainhead">
+        <nav>
+            <div class="container">
+                <span class="noWrap brand"><i class="fa fa-usd"></i>Wallet</span>
+                <ul class="menu">
+                    <li><a href="{% url 'expense:home' %}" class="active">Start</a></li>
+                    <li><a href="{% url 'expense:chart' %}">Chart</a></li>
+                    <li><a href="#contacts">Contact Us</a></li>
+                </ul>
+            </div>
+        </nav>
+        <div class="container hero">
+            <div class="title">
+                <h2>Personal <span class="noWrap brand"><i class="fa fa-usd"></i>Wallet</span></h2>
+                <h1>Tracker</h1>
+            </div>
+            <img src="https://images.vexels.com/media/users/3/131175/isolated/preview/b66ab14de4dccbb0fb5a28ca79ed81c0-justice-scale-circle-icon-by-vexels.png " class="img-fluid" alt="Responsive image">
+        </div>
+        <i class="fa fa-caret-down verMas"></i>
+    </header>
+    <section id="ComprarBitcoins">
+        <div class="container">
+            <div class="compraRapida">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-1"></div>
+                            <h2>My Wallet</h2>
+                            <a class="menuBtn">
+                                <span class="lines"></span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="card-body" ng-app="wallet" ng-controller="WalletController">
+                        <div class="overlay">
+                            <form ng-submit="expenseAdd()">
+                                <div class="card-form">
+                                    <header>
+                                        <h2> 
+                                          <div class="type">ADD</div>
+                                          <span>Enter the Details</span>
+                                        </h2>
+                                    </header>
+                                    <div class="form">
+                                        <div class="form-row">
+                                            <div class="input-group">
+                                                <label for="">Expense Details</label>
+                                                <input id="cardName" type="text" value="" placeholder="" ng-model="expenseInput" />
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="input-group">
+                                                <label for="">Expense Category</label>
+                                                <select class="custom-select" ng-model="expenseCategory">
+                                                    <option selected="selected">GR</option>
+                                                    <option>VE</option>
+                                                    <option>EN</option>
+                                                    <option>MI</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="input-group">
+                                                <label for="">Cash</label>
+                                                <input id="cardNumber" type="text" value="" maxlength="16" placeholder="" ng-model="expenseCash" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <footer class="footer">
+                                        <button class="button" type="submit" ng-click="saveData()">Submit</button>
+                                    </footer>
+                                </div>
+                            </form>
+                        </div>
+
+
+                        <div class="container">
+                          <div class="row">
+                              <div class='col-sm-6'>
+                                  <div class="form-group">
+                                      <div class='input-group date' id='datepicker1'>
+                                        From:
+                                          <input type='text' class="form-control" ng-model="from_date"/>
+                                          <span class="input-group-addon">
+                                              <span class="glyphicon glyphicon-calendar"></span>
+                                          </span>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class='col-sm-6'>
+                                  <div class="form-group">
+                                      <div class='input-group date' id='datepicker2'>
+                                        To:
+                                          <input type='text' class="form-control" ng-model="to_date" />
+                                          <span class="input-group-addon">
+                                              <span class="glyphicon glyphicon-calendar"></span>
+                                          </span>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                        </div>
+
+
+                         <div class="content">
+                          <ul class="list-group" ng-repeat="expense in expenseList | filter:categoryFilter | dateRange : from_date : to_date | orderBy:'-id' ">
+                              <li class="list-group-item list-group-item-action flex-column align-items-start" >
+
+                                  <div class="transaction">
+                                      <div class="description">
+                                          <div class="info">
+                                              <h3 ng-bind="expense.title"></h3><span ng-bind="expense.expense_category"></span><span>#</span><span ng-bind="expense.id"></span> - <span ng-bind="expense.time | date:'fullDate'"></span>
+                                          </div>
+                                          <div class="price #{type}" ng-bind="expense.cash | currency"></div>
+                                      </div>
+                                  </div>
+                              </li>
+                          </ul>
+                      </div>
+                      <br>
+                    <br>
+                    <span class="bitcoin"><span class="establecerValorBitcoin">$$$</span> </span>
+                    <div class="pagos">
+                        <i class="fa fa-balance-scale"></i>
+                    </div>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-primary" ng-click="category = 'GR' ">Grocery</button>
+                        <button type="button" class="btn btn-primary" ng-click="category = 'VE' ">Vechicle</button>
+                        <button type="button" class="btn btn-primary" ng-click="category = 'EN' ">Entertainment</button>
+                        <button type="button" class="btn btn-primary" ng-click="category = 'MI' ">Miscellaneous</button>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="graficaBitcoin">
+      <div class="container">
+        <canvas id="valorBitcoin"></canvas>
+
+      </div>
+    </section>
+
+
+    <footer class="mainfooter">
+        <div class="container">
+            <ul>
+                <li>Links</li>
+                <li><a href="{% url 'expense:chart' %}">Start</a></li>
+                <li><a href="{% url 'expense:chart' %}">Chart</a></li>
+                <li><a href="#contacts">Contact</a></li>
+            </ul>
+            
+            <ul id="contacts">
+                <li>Contacts</li>
+                <li><a href="#">info@wallet.es</a></li>
+                <li><a href="#">enterprise@bwallet.es</a></li>
+                <li><a href="#"><i class="fa fa-phone"></i>: +852 1234 5678
+                </a></li>
+                <li><a href="#"><i class="fa fa-fax"></i>: +852 8765 4321</a></li>
+            </ul>
+            
+                <ul class="social-network social-circle">
+                        <li><a id="a"href="#" class="icoRss" title="Rss"><i class="fa fa-rss"></i></a></li>
+                        <li><a id="a" href="#" class="icoFacebook" title="Facebook"><i class="fa fa-facebook"></i></a></li>
+                        <li><a id="a" href="#" class="icoTwitter" title="Twitter"><i class="fa fa-twitter"></i></a></li>
+                        <li><a id="a" href="#" class="icoGoogle" title="Google +"><i class="fa fa-google-plus"></i></a></li>
+                        <li><a id="a" href="#" class="icoLinkedin" title="Linkedin"><i class="fa fa-linkedin"></i></a></li>
+                    </ul>
+             
+        </div>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("#datepicker1").datepicker({
+              autoclose: true,
+            });
+            $("#datepicker2").datepicker({
+              autoclose: true,
+            });
+            $('.menuBtn').click(function() {
+                $(this).toggleClass('act');
+                if ($(this).hasClass('act')) {
+                    $('.overlay').addClass('act');
+                } else {
+                    $('.overlay').removeClass('act');
+                }
+            });
+        });
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.min.js"></script>
+  
+    <script src="{% static 'js/wallet.js' %}"></script>
+
+</body>
+
+</html>
