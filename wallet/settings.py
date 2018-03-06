@@ -25,7 +25,7 @@ SECRET_KEY = '^$im0%cwysvq*99g4)yb!og$iqds-d(zd=g5dk*+)207pyp254'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['walletrack.herokuapp.com']
 
 
 # Application definition
