@@ -4,7 +4,7 @@ var app = angular.module('myApp', ['zingchart-angularjs']);
 app.controller('MainController', function($scope, $http, $window) {
   $scope.getChart = function(){
       
-      $http.get('/expense/api/').then(function(response){
+      $http.get('/api/').then(function(response){
       $scope.coutGR = 0;
       $scope.coutVE = 0;
       $scope.coutMI = 0;

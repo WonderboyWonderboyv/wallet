@@ -1,7 +1,7 @@
 (function(){
 	var app = angular.module('wallet', []);
 	app.controller('WalletController', function($scope, $http, $window){
-		$http.get('/expense/api/').then(function(response){
+		$http.get('/api/').then(function(response){
 			$scope.expenseList =[];
 			console.log(response.data);
 			for(var i=0;i<response.data.length;i++){
