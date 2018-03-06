@@ -24,7 +24,7 @@
 
 		$scope.saveData = function(){
 			var data={title:$scope.expenseInput, expense_category:$scope.expenseCategory, cash:$scope.expenseCash};
-			$http.put('/expense/api/', data);
+			$http.put('/api/', data);
 			$window.location.reload();
 		};
 		$scope.expenseAdd = function(){
